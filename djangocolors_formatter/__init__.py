@@ -11,7 +11,7 @@ class DjangoColorsFormatter(logging.Formatter):
     def configure_style(self, style):
         style.DEBUG = style.HTTP_NOT_MODIFIED
         style.INFO = style.HTTP_INFO
-        style.WARNING = style.HTTP_REDIRECT
+        style.WARNING = style.HTTP_NOT_FOUND
         style.ERROR = style.ERROR
         style.CRITICAL = style.HTTP_SERVER_ERROR
         return style
