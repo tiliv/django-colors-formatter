@@ -7,6 +7,7 @@ Zero-config logging formatter that uses the built-in DJANGO_COLORS setting
 In your Django `LOGGING` settings, just add this to your formatters, and then reference it in (for example) a console logger:
 
     LOGGING = {
+        'version': 1,
         'formatters': {
             'colored': {
                 '()': 'djangocolors_formatter.DjangoColorsFormatter',
@@ -14,16 +15,18 @@ In your Django `LOGGING` settings, just add this to your formatters, and then re
             },
         },
         'handlers': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'colored',
+            'colored': {
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+                'formatter': 'colored',
+            },
         },
-        'loggers': 
+        'loggers': {
             'myproject': {
-                'handlers': ['console'],
+                'handlers': ['colored'],
                 'level': 'DEBUG',
             },
-        },    
+        },
     }
 
 The formatter generates its colors with Django's own internal colorizing mechanism, which means that the [`DJANGO_COLORS`](https://docs.djangoproject.com/en/dev/ref/django-admin/#syntax-coloring) environment variable is respected.
