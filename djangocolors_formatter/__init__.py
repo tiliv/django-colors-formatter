@@ -3,9 +3,13 @@ import logging
 
 from django.core.management.color import color_style
 
+
 class DjangoColorsFormatter(logging.Formatter):
     def __init__(self, *args, **kwargs):
-        super(DjangoColorsFormatter, self).__init__(*args, **kwargs)
+        if sys.version_info < (2, 7):
+            logging.Formatter.__init__(self, *args, **kwargs)
+        else:
+            super(DjangoColorsFormatter, self).__init__(*args, **kwargs)
         self.style = self.configure_style(color_style())
 
     def configure_style(self, style):
